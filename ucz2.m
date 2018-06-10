@@ -26,15 +26,16 @@ function [ W1po , W2po ] = ucz2 ( W1przed , W2przed , Pucz , Tucz,...
        E2 = D2.*5.*Y2.*(1-Y2);
        D1 = W2(2:end, :)*D2;
        E1 = D1.*5.*Y1.*(1-Y1);
-       dW1 = wspUcz*X1*E1'+ wspMom*(W1-W1prev);                      
-       dW2 = wspUcz*X2*E2'+ wspMom*(W2-W2prev); 
+       dW1 = wspUcz*X1*E1'+ wspMom*(W1-W1prev);                     
+       dW2 = wspUcz*X2*E2'+ wspMom*(W2-W2prev);
        
-       dW1(dW1 < 1.05) = -1.05;
-       %dW2(dW2 < 1.05 & dW2 > 0) = 0.05;
-       %dW2(dW2 > -1.05 & dW2 < 0) = -0.05;
-       
+       dW1(dW1 > 1.04) = 0.04;
+       dW1(dW1 < -1.04) = 0.04;
+       dW2(dW2 > 1.04) = 0.04;
+      
        W1 = W1+dW1;      
        W2 = W2+dW2; 
+       
        if ( i > zadanaLiczbaEpok )
            break
        end
